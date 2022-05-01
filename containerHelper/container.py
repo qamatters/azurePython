@@ -8,7 +8,7 @@ from os.path import abspath
 CONTAINER_NAME =  'deepakcontainer'
 STORAGE_ACCOUNT = 'javacodevalidationdeepak'
 STORAGEACCOUNTURL = "https://javacodevalidationdeepak.blob.core.windows.net"
-constants = yaml.safe_load(open(abspath('constants.yml')))
+constants = yaml.safe_load(open('C:\\Users\deepak.mathpal\\Documents\\AzurePython\\azurePython\\constants.yml'))
 
 def createBlobServiceClient():
       return  BlobServiceClient(
@@ -34,10 +34,10 @@ def downloadBlob():
     data = blob_data.readall()
     print(data)
 
-def donwloadParquetFile():
+def donwloadParquetFile(filename):
     blob_service_client_instance = createBlobServiceClient()
     blob_client_instance = blob_service_client_instance.get_blob_client(
-    CONTAINER_NAME, 'userdata1.parquet', snapshot=None)
+    CONTAINER_NAME, filename, snapshot=None)
     blob_data = blob_client_instance.download_blob()
     stream = BytesIO()
     blob_data.readinto(stream)
@@ -51,8 +51,8 @@ def setDisplayForDataFrame(max_columns,max_rows, width):
     pd.set_option('display.max_rows', max_rows)
     pd.set_option('display.width', width)
 
-def queryOnParquetFiles(query):
-    processed_df = donwloadParquetFile()
+def queryOnParquetFiles(query, filename):
+    processed_df = donwloadParquetFile(filename)
     setDisplayForDataFrame(None,None,1000)
     # print(processed_df)
     # print (processed_df.head(3))
@@ -60,20 +60,20 @@ def queryOnParquetFiles(query):
     print(processed_df.query(query))
     return processed_df.query(query)
 
-def parquetFilesShowColumnDataFromTop(columnName, rows):
-    processed_df = donwloadParquetFile()
+def parquetFilesShowColumnDataFromTop(columnName, rows, filename):
+    processed_df = donwloadParquetFile(filename)
     setDisplayForDataFrame(None,None,1000)
     print("---------------------Query Output------------------------------------------------------------------------------------------------------------------------------------------")
     print(processed_df[columnName].head(rows))
 
-def parquetFilesShowColumnDataFromBottom(columnName, rows):
-    processed_df = donwloadParquetFile()
+def parquetFilesShowColumnDataFromBottom(columnName, rows, filename):
+    processed_df = donwloadParquetFile(filename)
     setDisplayForDataFrame(None,None,1000)
     print("---------------------Query Output------------------------------------------------------------------------------------------------------------------------------------------")
     print(processed_df[columnName].tail(rows))
 
-def sorting(columnName,isAssending):
-    processed_df = donwloadParquetFile()
+def sorting(columnName,isAssending, filename):
+    processed_df = donwloadParquetFile(filename)
     setDisplayForDataFrame(None,None,1000)
     print("---------------------Query Output------------------------------------------------------------------------------------------------------------------------------------------")
     print(processed_df.sort_values(by=[columnName],ascending=isAssending))

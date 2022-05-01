@@ -4,14 +4,15 @@ from database.sqlConnector import readSQLData
 import pandas as pd
 
 def run_sample():
+    filename = "userdata1.parquet"
     validateContainer('deepakcontainer')
     downloadBlob()
-    donwloadParquetFile()
-    pd1 = queryOnParquetFiles('first_name == "Amanda" and last_name == "Jordan"')
-    pd2 =queryOnParquetFiles('first_name == "Amanda" and last_name == "Gray" or first_name == "Amanda" and last_name == "Jordan"')
-    parquetFilesShowColumnDataFromBottom('country', 3)
-    parquetFilesShowColumnDataFromTop('country', 10)
-    sorting('country', False)
+    donwloadParquetFile(filename)
+    pd1 = queryOnParquetFiles('first_name == "Amanda" and last_name == "Jordan"', filename)
+    pd2 =queryOnParquetFiles('first_name == "Amanda" and last_name == "Gray" or first_name == "Amanda" and last_name == "Jordan"', filename)
+    parquetFilesShowColumnDataFromBottom('country', 3, filename)
+    parquetFilesShowColumnDataFromTop('country', 10, filename)
+    sorting('country', False, filename)
 
     print("difference is : ")
 
