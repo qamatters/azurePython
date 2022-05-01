@@ -1,0 +1,7 @@
+ dbservername: 'testdatabaseserver88'
+ server: 'testdatabaseserver88.database.windows.net'
+ database: 'testdatabase'
+ username:  'admindeepak'
+ password: ''
+ driver: '{ODBC Driver 17 for SQL Server}'
+ storageaccountkey: ''
